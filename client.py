@@ -1,7 +1,7 @@
 import json
 import requests
 import numpy as np
-
+key = "F1hP7PePw62PZ8iABBDNb2zqmkX7nbVrz8328hJ3ySZLvyQ88o"
 API_ENDPOINT = 'http://10.4.21.156'
 MAX_DEG = 11
 

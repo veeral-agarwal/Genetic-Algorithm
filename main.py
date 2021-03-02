@@ -1,7 +1,6 @@
 import numpy as np
 from client import *
 import random
-key = "F1hP7PePw62PZ8iABBDNb2zqmkX7nbVrz8328hJ3ySZLvyQ88o"
 #13510723304.19212 368296592820.6967
 f=open("overfit.txt","r") 
 data=f.read()
