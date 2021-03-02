@@ -1,9 +1,9 @@
 import numpy as np
 from client import *
 import random
-
+key = "F1hP7PePw62PZ8iABBDNb2zqmkX7nbVrz8328hJ3ySZLvyQ88o"
 #13510723304.19212 368296592820.6967
-f=open("overfit.txt","r")
+f=open("overfit.txt","r") \
 data=f.read()
 data=data.rstrip()
 data=data.strip('][').split(', ')
@@ -36,7 +36,7 @@ def get_fitness(arr, ind):
     fitness=[0 for i in range(chromosome_size)]
     j=0    
     for chromoso in arr:
-        testerr,validerr=get_errors("F1hP7PePw62PZ8iABBDNb2zqmkX7nbVrz8328hJ3ySZLvyQ88o",list(chromoso))
+        testerr,validerr=get_errors(key,list(chromoso))
         print(testerr,validerr)
         fitness[j]=1/(10*testerr+validerr)
         j+=1
