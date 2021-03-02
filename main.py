@@ -3,7 +3,7 @@ from client import *
 import random
 key = "F1hP7PePw62PZ8iABBDNb2zqmkX7nbVrz8328hJ3ySZLvyQ88o"
 #13510723304.19212 368296592820.6967
-f=open("overfit.txt","r") \
+f=open("overfit.txt","r") 
 data=f.read()
 data=data.rstrip()
 data=data.strip('][').split(', ')
@@ -20,7 +20,6 @@ def mod(val):
         return -1*val
     return val    
 
-
 #change few genes of chromosome 
 def mutate(chromosome:np.ndarray):
     mean=np.mean(init_pop,axis=0)
@@ -28,7 +27,7 @@ def mutate(chromosome:np.ndarray):
         #chromosome[i]=np.random.choice(chromosome) bad idea
         temp=np.random.choice(mean)
         if mod(temp)<mod(chromosome[i]):
-            chromosome[i]-=temp              
+            chromosome[i]-=temp
 #population generation
 
 def get_fitness(arr, ind):
@@ -69,9 +68,6 @@ def crossover(parent1,parent2):
     for j in range(mid,chromosome_size):
         child[j]=parent2[j]
     return child
-
-        
-    
 
 #at last we can put newpop to init pop and start algo again
 init_pop=np.zeros((pop_size,11))
@@ -118,6 +114,3 @@ for i in range(pop_size):
     else:
         inde=pop_size-sorted_index_par[i]-1
         print("parent",inde)#take init_pop[inde] and add to next gen init pop
-
-        
-
