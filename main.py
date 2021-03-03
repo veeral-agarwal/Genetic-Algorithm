@@ -14,18 +14,13 @@ print(list(data))
 pop_size=10
 chromosome_size=len(data)
 
-def mod(val):
-    if val<0:
-        return -1*val
-    return val    
-
 #change few genes of chromosome 
 def mutate(chromosome:np.ndarray):
     mean=np.mean(init_pop,axis=0)
     for i in range(chromosome_size):
         #chromosome[i]=np.random.choice(chromosome) bad idea
         temp=np.random.choice(mean)
-        if mod(temp)<mod(chromosome[i]):
+        if abs(temp)<abs(chromosome[i]):
             chromosome[i]-=temp
 #population generation
 
@@ -77,7 +72,7 @@ probability=[0 for j in range(pop_size)]
 #copy the original vector to all the population and change few values in the population so that it generates varied initial population,ie we can simply mutate
 for i in range(pop_size):
     init_pop[i]=list(data)
-    mutate(init_pop[i])
+    mutate(init_pop[i]) 
 print(init_pop)
 get_fitness(init_pop,1)
 selection(init_pop)
