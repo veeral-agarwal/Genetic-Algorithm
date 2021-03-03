@@ -14,15 +14,29 @@ print(list(data))
 pop_size=10
 chromosome_size=len(data)
 
+# #change few genes of chromosome 
+# def mutate(chromosome:np.ndarray):
+#     mean=np.mean(init_pop,axis=0)
+#     for i in range(chromosome_size):
+#         #chromosome[i]=np.random.choice(chromosome) bad idea
+#         temp=np.random.choice(mean)
+#         if abs(temp)<abs(chromosome[i]):
+#             chromosome[i]-=temp
+# #population generation
+
 #change few genes of chromosome 
 def mutate(chromosome:np.ndarray):
-    mean=np.mean(init_pop,axis=0)
+    mutation_probability = 0.4
     for i in range(chromosome_size):
-        #chromosome[i]=np.random.choice(chromosome) bad idea
-        temp=np.random.choice(mean)
-        if abs(temp)<abs(chromosome[i]):
-            chromosome[i]-=temp
+        l = abs(chromosome[i])/5000
+        r = -1*l
+        temp = random.uniform(r,l)
+        k = random.uniform(0,1)
+        if k <= mutation_probability:
+            chromosome[i]+=temp
 #population generation
+
+
 
 def get_fitness(arr, ind):
         #getting errors on the data
