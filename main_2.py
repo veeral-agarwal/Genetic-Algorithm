@@ -15,7 +15,7 @@ for i in range(len(data)):
     data[i]=float(data[i])
 
 #print(list(data))
-pop_size=6
+pop_size=10
 chromosome_size=len(data)
 
 def mod(val):
@@ -37,11 +37,30 @@ def mutate(chromosome:np.ndarray):
             chromosome[i]-=temp              
 #population generation
 '''
+
+'''def get initial pop (n = population): population = np.zeros (shape (n, 11))
+
+for i in range (n):
+
+rng = np.random.uniform(low = -0.30, high = 0.30, size=(1, 11))
+
+#rng = np. random.uniform(low = 0.15, high = 0.15, size=(1, 11)) population [i, :] = overfit_vector + png overfit vector
+
+return population'''
+
+
+#getting initial population 
+def get_initial_population (n = pop_size):
+    population = np.zeros(shape(n,11))
+    for i in range (n):
+        pass
+
+
 #change few genes of chromosome 
 def mutate(chromosome:np.ndarray):
     mutation_probability = 0.6
     for i in range(chromosome_size):
-        l = abs(chromosome[i])/5000
+        l = abs(chromosome[i])/500
         r = -1*l
         temp = random.uniform(r,l)
         k = random.uniform(0,1)
@@ -54,7 +73,7 @@ def get_fitness(arr, ind):
     fitness=[0 for i in range(chromosome_size)]
     j=0    
     for chromoso in arr:
-        testerr,validerr=get_errors("F1hP7PePw62PZ8iABBDNb2zqmkX7nbVrz8328hJ3ySZLvyQ88o",list(chromoso))
+        testerr,validerr=get_errors(key,list(chromoso))
         print(testerr,validerr)
         fitness[j]=1/(testerr+validerr)
         j+=1
@@ -78,6 +97,14 @@ def selection(arr:np.ndarray):
         parent1=arr[parent1ind]
         parent2ind=np.random.choice(pop_size,p=probability)
         parent2=arr[parent2ind]
+
+        #printing parents after selection :
+        print("printing parents after selection :")
+        print("parent1:")
+        print(parent1)
+        print("parent2:")
+        print(parent2)
+
         new_pop[i]=crossover(parent1,parent2)
 
 def crossover(parent1,parent2):
@@ -90,27 +117,52 @@ def crossover(parent1,parent2):
     return child
 
         
-generations=1    
+generations=1
 new_init_pop=np.zeros((pop_size,11))
-while(generations!=2):
+while(generations!=11):
 #at last we can put newpop to init pop and start algo again
     init_pop=np.zeros((pop_size,11))
     new_pop=np.zeros((pop_size,11))
     fitness1=[0 for i in range(chromosome_size)]
     fitness2=[0 for i in range(chromosome_size)]
     probability=[0 for j in range(pop_size)]
+    
+    
     #copy the original vector to all the population and change few values in the population so that it generates varied initial population,ie we can simply mutate
     for i in range(pop_size):
         if generations==1:
             init_pop[i]=list(data)
+            # for i in range (n):
+            # rng = np.random.uniform(low = -0.30, high = 0.30, size=(1, 11))
+            # init_pop [i, :] = list(data) + rng* list(data)
         else:
             init_pop[i]=new_init_pop[i]
         mutate(init_pop[i])
-    #print(init_pop)
+    
+    #initial population printing
+    print("initial population :")
+    for lol in init_pop:
+        print(lol)
+    # generations+=1
+
+
     get_fitness(init_pop,1)
     selection(init_pop)
+    
+    # printing population after crossover
+    print("after crossover:")
+    for lol in new_pop:
+        print(lol)
+
+    # mutation
     for i in range(pop_size): 
         mutate(new_pop[i])
+
+    #printing population after mutation
+    print("population after mutation :")
+    for lol in new_pop:
+        print(lol)
+
     #print(new_pop)
     get_fitness(new_pop,2)
 
@@ -147,23 +199,12 @@ while(generations!=2):
     for i in range(pop_size):
         new_init_pop[i]=finaltup[i][1]
         print(finaltup[i][0])
-    ret=submit("F1hP7PePw62PZ8iABBDNb2zqmkX7nbVrz8328hJ3ySZLvyQ88o",list(new_init_pop[0]))  
+    ret=submit(key,list(new_init_pop[0]))  
     print(ret)
-    generations+=1
 
-
-
-
-
-
-
-
-
-
-
-
-
+    #printing the vector we are submitting
+    print("the vector we are submitting",end=" ")
+    print(new_init_pop[0])
  
-
-        
+    generations+=1
 

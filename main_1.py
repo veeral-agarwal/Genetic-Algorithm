@@ -53,7 +53,7 @@ def get_fitness(arr, ind):
     fitness=[0 for i in range(chromosome_size)]
     j=0    
     for chromoso in arr:
-        testerr,validerr=get_errors("F1hP7PePw62PZ8iABBDNb2zqmkX7nbVrz8328hJ3ySZLvyQ88o",list(chromoso))
+        testerr,validerr=get_errors(key,list(chromoso))
         print(testerr,validerr)
         fitness[j]=1/(10*testerr+validerr)
         j+=1
