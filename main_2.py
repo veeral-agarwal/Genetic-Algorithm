@@ -49,23 +49,22 @@ rng = np.random.uniform(low = -0.30, high = 0.30, size=(1, 11))
 return population'''
 
 
-#getting initial population 
-def get_initial_population (n = pop_size):
-    population = np.zeros(shape(n,11))
-    for i in range (n):
-        pass
 
 
 #change few genes of chromosome 
 def mutate(chromosome:np.ndarray):
-    mutation_probability = 0.6
+    mutation_probability = 0.4
     for i in range(chromosome_size):
-        l = abs(chromosome[i])/500
+        l = abs(chromosome[i])/5000
         r = -1*l
         temp = random.uniform(r,l)
         k = random.uniform(0,1)
         if k <= mutation_probability:
             chromosome[i]+=temp
+        if chromosome[i]>10:
+            chromosome[i]=10
+        elif chromosome[i]<-10:
+            chromosome[i]=-10
 #population generation
 
 def get_fitness(arr, ind):
@@ -119,7 +118,7 @@ def crossover(parent1,parent2):
         
 generations=1
 new_init_pop=np.zeros((pop_size,11))
-while(generations!=11):
+while(generations!=4):
 #at last we can put newpop to init pop and start algo again
     init_pop=np.zeros((pop_size,11))
     new_pop=np.zeros((pop_size,11))
