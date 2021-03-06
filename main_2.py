@@ -506,7 +506,7 @@ while(generations!=2):
         finaltup.append((fitness2[i],new_pop[i]))
     print("final touple:")
     print(finaltup)
-    finaltup.sort(reverse=True)
+    finaltup.sort(reverse=True, key=lambda x:x[0]) #made change here
     print("final sorted touple")
     print(finaltup)
     print("FFS , MIXED FITNESS FUNCTIONS IN ORDER")
