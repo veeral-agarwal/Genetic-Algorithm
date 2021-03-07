@@ -291,21 +291,32 @@
 import numpy as np
 from client import *
 import random
+import json 
 #13508412130.218098 368125762698.6422
 #13560827319.190525 370434930576.4746
 #13532626957.355581 369745382579.87744
 #13510723304.19212 368296592820.6967   this
-f=open("overfit.txt","r")
-data=f.read()
-data=data.rstrip()
-data=data.strip('][').split(', ')
-f.close()
-for i in range(len(data)):
-    data[i]=float(data[i])
+# f=open("overfit.txt","r")
+# data=f.read()
+# data=data.rstrip()
+# data=data.strip('][').split(', ')
+# f.close()
+# for i in range(len(data)):
+#     data[i]=float(data[i])
+
+
+with open ("TeamName1.json","r") as file:
+    vectors = json.load(file)
+# data = [[]]
+# for i in range(len(vectors)):
+#     for j in range(len(vectors[i])):
+#         data[i][j]=float(vectors[i][j])
+
+data = vectors
 
 #print(list(data))
 pop_size=10
-chromosome_size=len(data)
+chromosome_size=11
 train_factor = 0.5
 
 def mod(val):
@@ -343,7 +354,7 @@ return population'''
 
 #change few genes of chromosome 
 def mutate(chromosome:np.ndarray):
-    mutation_probability = 0.4
+    mutation_probability = 0.2
     for i in range(chromosome_size):
         l = abs(chromosome[i])/5000
         r = -1*l
@@ -403,11 +414,12 @@ def crossover(parent1,parent2):
         child[i]=parent1[i]
     for j in range(mid,chromosome_size):
         child[j]=parent2[j]
+    print(child)
     return child
 
 
-temp_arr  = np.zeros((pop_size,11))
-temp_arr = list(data)
+# temp_arr  = np.zeros((pop_size,11))
+temp_arr = data
 print(temp_arr)
 
         
@@ -424,8 +436,8 @@ while(generations!=2):
     
     #copy the original vector to all the population and change few values in the population so that it generates varied initial population,ie we can simply mutate
     for i in range(pop_size):
-        if generations==1:
-            init_pop[i]=list(data)
+        # if generations==1:
+        #     init_pop[i]=list(data)
             # for i in range (n):
             # rng = np.random.uniform(low = -0.30, high = 0.30, size=(1, 11))
             # init_pop [i, :] = list(data) + rng* list(data)
@@ -443,7 +455,7 @@ while(generations!=2):
                 if tempp < 8:
                     rng = np.random.uniform(low = 0.3, high = 0.80)
                     
-                    init_pop[i][j] = rng* temp_arr[j]
+                    init_pop[i][j] = rng* temp_arr[i][j]
         
         else:
             init_pop[i]=new_init_pop[i]
@@ -506,7 +518,11 @@ while(generations!=2):
         finaltup.append((fitness2[i],new_pop[i]))
     print("final touple:")
     print(finaltup)
+# <<<<<<< HEAD
+    finaltup.sort(reverse=True , key=lambda x:x[0])
+# =======
     finaltup.sort(reverse=True, key=lambda x:x[0]) #made change here
+# >>>>>>> 79663dab7f777da52388a064f057b1a35a525a35
     print("final sorted touple")
     print(finaltup)
     print("FFS , MIXED FITNESS FUNCTIONS IN ORDER")
@@ -519,11 +535,33 @@ while(generations!=2):
     #printing the vector we are submitting
     print("the vector we are submitting",end=" ")
     print(new_init_pop[0])
- 
+
+    tr ,va = get_errors(key,list(new_init_pop[0]))
+
+    update = []
+    for i in range(len(new_init_pop)):
+        update.append(list(new_init_pop[i]))
+
+
+
+    loll = open("vector.txt","a")
+    loll.write(str(new_init_pop[0] ))
+    loll.close()
+
+    loll = open("tr.txt","a")
+    loll.write(str(tr  )+"\n")
+    loll.close()
+
+    loll = open("va.txt","a")
+    loll.write(str(va )+"\n")
+    loll.close()
+
+
     generations+=1
 
 
-
+with open('TeamName1.json','w') as outfile:
+    json.dump(update,outfile)
 
 
 
