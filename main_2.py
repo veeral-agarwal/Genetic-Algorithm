@@ -544,15 +544,15 @@ while(generations!=2):
 
 
 
-    loll = open("vector.txt","a")
+    loll = open("vector1.txt","a")
     loll.write(str(new_init_pop[0] ))
     loll.close()
 
-    loll = open("tr.txt","a")
+    loll = open("tr1.txt","a")
     loll.write(str(tr  )+"\n")
     loll.close()
 
-    loll = open("va.txt","a")
+    loll = open("va1.txt","a")
     loll.write(str(va )+"\n")
     loll.close()
 
