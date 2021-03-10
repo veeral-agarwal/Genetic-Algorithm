@@ -109,7 +109,7 @@ print(temp_arr)
         
 generations=1
 new_init_pop=np.zeros((pop_size,11))
-while(generations!=21):
+while(generations!=11):
 
     #at last we can put newpop to init pop and start algo again
     init_pop=np.zeros((pop_size,11))
@@ -144,14 +144,16 @@ while(generations!=21):
                     init_pop[i][j] = rng* temp_arr[i][j]
         
         else:
-
-            for j in range (chromosome_size):
-                # tempp = random.randint(1,10)
-                # if tempp < 8:
-                    # rng = np.random.uniform(low = 0.3, high = 0.80)
-                init_pop[i][j] = temp_arr[i][j]
-            # init_pop[i]=new_init_pop[i]
-        mutate(init_pop[i])
+            if generations == 1:
+                for j in range (chromosome_size):
+                    # tempp = random.randint(1,10)
+                    # if tempp < 8:
+                        # rng = np.random.uniform(low = 0.3, high = 0.80)
+                    init_pop[i][j] = temp_arr[i][j]
+                # init_pop[i]=new_init_pop[i]
+            # mutate(init_pop[i])
+            else:
+                init_pop[i]=new_init_pop[i]
     
     #initial population printing
     print("initial population :")
@@ -217,15 +219,15 @@ while(generations!=21):
     for i in range(len(new_init_pop)):
         update.append(list(new_init_pop[i]))
 
-    loll = open("9mar_vector.txt","a")
+    loll = open("10mar_vector.txt","a")
     loll.write(str(new_init_pop[0] )+"\n")
     loll.close()
 
-    loll = open("9mar_tr.txt","a")
+    loll = open("10mar_tr.txt","a")
     loll.write(str(tr  )+"\n")
     loll.close()
 
-    loll = open("9mar_va.txt","a")
+    loll = open("10mar_va.txt","a")
     loll.write(str(va )+"\n")
     loll.close()
 
