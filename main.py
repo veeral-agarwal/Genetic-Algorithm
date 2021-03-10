@@ -109,7 +109,7 @@ print(temp_arr)
         
 generations=1
 new_init_pop=np.zeros((pop_size,11))
-while(generations!=11):
+while(generations!=4):
 
     #at last we can put newpop to init pop and start algo again
     init_pop=np.zeros((pop_size,11))
@@ -128,7 +128,7 @@ while(generations!=11):
             # rng = np.random.uniform(low = -0.30, high = 0.30, size=(1, 11))
             # init_pop [i, :] = list(data) + rng* list(data)
         
-        if generations==0:
+        if generations==1:
     
             # init_pop[i]=list(data)
 
@@ -219,15 +219,15 @@ while(generations!=11):
     for i in range(len(new_init_pop)):
         update.append(list(new_init_pop[i]))
 
-    loll = open("10mar_vector.txt","a")
+    loll = open("10mar_n_vector.txt","a")
     loll.write(str(new_init_pop[0] )+"\n")
     loll.close()
 
-    loll = open("10mar_tr.txt","a")
+    loll = open("10mar_n_tr.txt","a")
     loll.write(str(tr  )+"\n")
     loll.close()
 
-    loll = open("10mar_va.txt","a")
+    loll = open("10mar_n_va.txt","a")
     loll.write(str(va )+"\n")
     loll.close()
 
@@ -236,3 +236,10 @@ while(generations!=11):
 with open('TeamName1.json','w') as outfile:
     json.dump(update,outfile)
 
+
+
+
+'''
+after 4 = 8994276914266.645
+after 6 = 11832627225748.928
+'''
