@@ -404,7 +404,12 @@ def selection(arr:np.ndarray):
         print(parent1)
         print("parent2:")
         print(parent2)
-
+        # appending parents after selection in generation file 
+        generation_file.write("parents after selection:\n")
+        generation_file.write("parent1 and its probability : ")
+        generation_file.write(str(parent1)+str(probability[parent1ind])+"\n")
+        generation_file.write("parent2 and its probability:  ")
+        generation_file.write(str(parent2)+str(probability[parent2ind])+"\n")
         new_pop[i]=crossover(parent1,parent2)
 
 def crossover(parent1,parent2):
@@ -423,6 +428,9 @@ temp_arr = data
 print(temp_arr)
 
         
+
+generation_file = open("11mar_generations.txt","a")
+
 generations=1
 new_init_pop=np.zeros((pop_size,11))
 while(generations!=2):
@@ -465,6 +473,12 @@ while(generations!=2):
     print("initial population :")
     for lol in init_pop:
         print(lol)
+    #appending initial population in generations file
+    generation_file.write("\n \n \n \ngeneration 1 \n\n") #put here generation number
+    generation_file.write("initial population:\n")
+    for lol in init_pop:
+        generation_file.write(str(lol)+"\n")
+    generation_file.write("\n")
     # generations+=1
 
 
@@ -475,6 +489,11 @@ while(generations!=2):
     print("after crossover:")
     for lol in new_pop:
         print(lol)
+    # appending population after crossover in generation file 
+    generation_file.write("population after corssover:\n")
+    for lol in new_pop:
+        generation_file.write(str(lol)+"\n")
+    generation_file.write("\n")
 
     # mutation
     for i in range(pop_size): 
@@ -484,6 +503,13 @@ while(generations!=2):
     print("population after mutation :")
     for lol in new_pop:
         print(lol)
+    # appending population after mutation in generation file 
+    generation_file.write("population after mutation:\n")
+    for lol in new_pop:
+        generation_file.write(str(lol)+"\n")
+    generation_file.write("\n")
+
+
 
     #print(new_pop)
     get_fitness(new_pop,2)
@@ -541,6 +567,7 @@ while(generations!=2):
     update = []
     for i in range(len(new_init_pop)):
         update.append(list(new_init_pop[i]))
+
 
 
 

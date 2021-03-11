@@ -73,6 +73,7 @@ def get_fitness(arr, ind):
     sum_fit=np.sum(fitness)
     for k in range(pop_size):
         probability[k]=fitness[k]/sum_fit   
+    
     #print(probability,np.sum(probability))    
 
 def selection(arr:np.ndarray):
@@ -88,6 +89,13 @@ def selection(arr:np.ndarray):
         print(parent1)
         print("parent2:")
         print(parent2)
+        # appending parents after selection in generation file 
+        generation_file.write("parents after selection:\n")
+        generation_file.write("parent1 and its probability : ")
+        generation_file.write(str(parent1)+str(probability[parent1ind])+"\n")
+        generation_file.write("parent2 and its probability:  ")
+        generation_file.write(str(parent2)+str(probability[parent2ind])+"\n")
+        
 
         new_pop[i]=crossover(parent1,parent2)
 
@@ -106,10 +114,16 @@ def crossover(parent1,parent2):
 temp_arr = data
 print(temp_arr)
 
-        
+
+
+generation_file = open("11mar_generations.txt","a")
+
+
 generations=1
 new_init_pop=np.zeros((pop_size,11))
-while(generations!=4):
+while(generations!=2):
+
+    print("generation:" , generations)
 
     #at last we can put newpop to init pop and start algo again
     init_pop=np.zeros((pop_size,11))
@@ -128,7 +142,7 @@ while(generations!=4):
             # rng = np.random.uniform(low = -0.30, high = 0.30, size=(1, 11))
             # init_pop [i, :] = list(data) + rng* list(data)
         
-        if generations==1:
+        if generations==0:
     
             # init_pop[i]=list(data)
 
@@ -154,19 +168,35 @@ while(generations!=4):
             # mutate(init_pop[i])
             else:
                 init_pop[i]=new_init_pop[i]
-    
+        mutate(init_pop[i])
+
+
     #initial population printing
     print("initial population :")
     for lol in init_pop:
         print(lol)
+    #appending initial population in generations file
+    generation_file.write("\n \n \n \ngeneration 10\n\n")
+    generation_file.write("initial population:\n")
+    for lol in init_pop:
+        generation_file.write(str(lol)+"\n")
+    generation_file.write("\n")
+
 
     get_fitness(init_pop,1)
+
     selection(init_pop)
     
     # printing population after crossover
     print("after crossover:")
     for lol in new_pop:
         print(lol)
+    # appending population after crossover in generation file 
+    generation_file.write("population after corssover:\n")
+    for lol in new_pop:
+        generation_file.write(str(lol)+"\n")
+    generation_file.write("\n")
+
 
     # mutation
     for i in range(pop_size): 
@@ -176,6 +206,13 @@ while(generations!=4):
     print("population after mutation :")
     for lol in new_pop:
         print(lol)
+    # appending population after mutation in generation file 
+    generation_file.write("population after mutation:\n")
+    for lol in new_pop:
+        generation_file.write(str(lol)+"\n")
+    generation_file.write("\n")
+
+
 
     #print(new_pop)
     get_fitness(new_pop,2)
@@ -219,15 +256,15 @@ while(generations!=4):
     for i in range(len(new_init_pop)):
         update.append(list(new_init_pop[i]))
 
-    loll = open("10mar_n_vector.txt","a")
+    loll = open("11mar_n_vector.txt","a")
     loll.write(str(new_init_pop[0] )+"\n")
     loll.close()
 
-    loll = open("10mar_n_tr.txt","a")
+    loll = open("11mar_n_tr.txt","a")
     loll.write(str(tr  )+"\n")
     loll.close()
 
-    loll = open("10mar_n_va.txt","a")
+    loll = open("11mar_n_va.txt","a")
     loll.write(str(va )+"\n")
     loll.close()
 
@@ -237,7 +274,7 @@ with open('TeamName1.json','w') as outfile:
     json.dump(update,outfile)
 
 
-
+generation_file.close()
 
 '''
 after 4 = 8994276914266.645
