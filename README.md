@@ -1,4 +1,2 @@
-# MDL_Project
-machine, data and learning: course project on genetic algorithms | spring 2021
- 
- 
+# Genetic Algorithm 
+done as a project in Machine Data and Learning course, MDL | Spring 2021
